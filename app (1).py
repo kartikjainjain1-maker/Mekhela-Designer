@@ -1,15 +1,3 @@
-To fix this, we just need to delete the extra symbol at the very bottom of your code! 
-
-When you copied the code, the final line accidentally included a `}` symbol from the system path, which is why Python is throwing a `SyntaxError`.
-
-Here is the **perfectly clean, upgraded code** with no extra symbols. 
-
----
-
-### Step 1: Copy this clean code
-Tap and hold your finger on this block, select all of it, and click **Copy**:
-
-```python
 import streamlit as st
 import cv2
 import numpy as np
@@ -856,5 +844,4 @@ with tab6:
                     file_name=filename,
                     mime="image/png",
                     key=f"dl_gallery_{filename}"
-                )
-```
+)
