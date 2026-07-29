@@ -18,6 +18,30 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# Helper to automatically download template assets from public URLs if they are missing!
+# This ensures the app will NEVER throw a FileNotFoundError, even if they only have app (1).py on GitHub!
+def check_and_download_assets():
+    os.makedirs("images", exist_ok=True)
+    assets_map = {
+        "images/assamese_model_template.png": "https://tmpfiles.org/dl/wrwbiAHsBb8l/assamese_model_template.png",
+        "images/mask_sador.png": "https://tmpfiles.org/dl/wuwziqHQBkEt/mask_sador.png",
+        "images/mask_mekhela.png": "https://tmpfiles.org/dl/wzw4ifHusiwA/mask_mekhela.png",
+        "images/sea_green_scenic_river.jpg": "https://tmpfiles.org/dl/wAwFigHwsoAZ/sea_green_scenic_river.jpg"
+    }
+    
+    for local_path, url in assets_map.items():
+        if not os.path.exists(local_path):
+            try:
+                response = requests.get(url, timeout=60)
+                if response.status_code == 200:
+                    with open(local_path, "wb") as f:
+                        f.write(response.content)
+            except Exception as e:
+                st.error(f"Error auto-downloading required system asset '{local_path}': {e}")
+
+# Run asset check
+check_and_download_assets()
+
 # Constants
 OUTPUT_DIR = "outputs"
 LOOKBOOK_DIR = "outputs/lookbook"
@@ -821,3 +845,4 @@ with tab6:
                     mime="image/png",
                     key=f"dl_gallery_{filename}"
                 )
+,path:app.py}
